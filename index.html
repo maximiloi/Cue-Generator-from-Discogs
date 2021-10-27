@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cue Generator from Discogs</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <!-- <label for="discogsId">Discogs Id</label> -->
+    <input type="text" name="discogsId" id="discogsId" class="discogs-id" placeholder="Discogs Id" required>
+
+    <!-- <label for="fileName">File name</label> -->
+    <input type="text" name="fileName" id="fileName" class="file-name" placeholder="File name" required>
+
+    <!-- <label for="numberDisc">Number Disc</label> -->
+    <input type="number" name="numberDisc" id="numberDisc" min="1" max="10" class="number-disc"
+      placeholder="Number Disc">
+  </div>
+
+  <!-- <textarea name="cueIn" id="cueIn" cols="50" rows="50"></textarea> -->
+
+  <textarea name="cueOut" id="cueOut" class="cue-out" cols="70" rows="50"></textarea>
+
+  <button class="btn btn-generator">Generator Cue</button>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
