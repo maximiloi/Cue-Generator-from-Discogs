@@ -1,5 +1,5 @@
 const API_URL = 'https://api.discogs.com/releases/';
-const CUE_DICTIONARY = ['REM', 'GENRE', 'STYLES', 'DATE', 'DISCOGS_URL', 'PERFORMER', 'WAVE', 'TITLE', 'FILE', 'DISCNUMBER', 'TRACK', 'AUDIO', 'INDEX'];
+const CUE_DICTIONARY = ['REM', 'GENRE', 'STYLES', 'DATE', 'DISCOGS_URL', 'PERFORMER', 'MP3', 'TITLE', 'FILE', 'DISCNUMBER', 'TRACK', 'AUDIO', 'INDEX 01'];
 
 const btnGenerator = document.querySelector('.btn-generator');
 const discogsId = document.querySelector('.discogs-id');
@@ -36,6 +36,9 @@ function getArtistToTrack(array) {
 
 function tracklist(array) {
   let resultArray = [];
+  let timeArray = ['00:00:00'];
+  let timeOut = 0;
+
   array.forEach(item => {
     if (item.position[0].includes(getNumberDisc())) {
       resultArray.push(item);
@@ -44,20 +47,20 @@ function tracklist(array) {
 
   resultArray.forEach(item => {
     getArtistToTrack(item.artists);
-    `${item.title}`;
-    `${item.position}`;
-    `${item.position.substr(item.position.length - 2)}`;
-    `${item.duration}`;
-    console.log('item.duration: ', item.duration);
 
     cueTracklist += `${CUE_DICTIONARY[10]} ${item.position.substr(item.position.length - 2)} ${CUE_DICTIONARY[11]}
-    ${CUE_DICTIONARY[7]} "${item.title}"
     ${CUE_DICTIONARY[5]} "${getArtistToTrack(item.artists)}"
-    ${CUE_DICTIONARY[12]} ${item.position.substr(item.position.length - 2)} ${timeTrack}
+    ${CUE_DICTIONARY[7]} "${item.title}"
+    ${CUE_DICTIONARY[12]} ${Math.floor(timeOut / 60)}:${String(timeOut % 60).padStart(2, "0")}:00
   `;
-    // new Date(Date.parse(item.duration));
-    console.log('new Date(Date.parse(item.duration)): ', new Date(Date.parse(item.duration)));
-    // timeTrack = ;
+
+    timeArray.push('0' + item.duration + ':00');
+    console.log('timeArray: ', timeArray);
+    timeOut = timeArray.reduce((acc, el) => {
+      const [min, sec] = el.split`:`;
+      return acc + min * 60 + parseInt(sec);
+    }, 0);
+    console.log('timeOut: ', timeOut);
   });
   return cueTracklist;
 }
