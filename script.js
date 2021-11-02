@@ -51,16 +51,14 @@ function tracklist(array) {
     cueTracklist += `${CUE_DICTIONARY[10]} ${item.position.substr(item.position.length - 2)} ${CUE_DICTIONARY[11]}
     ${CUE_DICTIONARY[5]} "${getArtistToTrack(item.artists)}"
     ${CUE_DICTIONARY[7]} "${item.title}"
-    ${CUE_DICTIONARY[12]} ${Math.floor(timeOut / 60)}:${String(timeOut % 60).padStart(2, "0")}:00
+    ${CUE_DICTIONARY[12]} ${timeOut < 1000 ? 0 : ''}${Math.floor(timeOut / 60)}:${String(timeOut % 60).padStart(2, "0")}:00
   `;
 
     timeArray.push('0' + item.duration + ':00');
-    console.log('timeArray: ', timeArray);
     timeOut = timeArray.reduce((acc, el) => {
       const [min, sec] = el.split`:`;
       return acc + min * 60 + parseInt(sec);
     }, 0);
-    console.log('timeOut: ', timeOut);
   });
   return cueTracklist;
 }
