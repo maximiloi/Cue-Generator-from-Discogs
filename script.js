@@ -2,6 +2,7 @@ const API_URL = 'https://api.discogs.com/releases/';
 const CUE_DICTIONARY = ['REM', 'GENRE', 'STYLES', 'DATE', 'DISCOGS_URL', 'PERFORMER', 'MP3', 'TITLE', 'FILE', 'DISCNUMBER', 'TRACK', 'AUDIO', 'INDEX 01'];
 
 const btnGenerator = document.querySelector('.btn-generator');
+const btnDownload = document.querySelector('.btn-download');
 const discogsId = document.querySelector('.discogs-id');
 const fileName = document.querySelector('.file-name');
 const numberDisc = document.querySelector('.number-disc');
@@ -74,16 +75,25 @@ async function generateCue() {
   let discogsData = await getDiscogs();
 
   cueOut.innerHTML =
-    `${CUE_DICTIONARY[0]} ${discogsData.artists_sort} - ${discogsData.title}
-${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[1]} ${dataForArray(discogsData.genres)}
-${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[2]} ${dataForArray(discogsData.styles)}
-${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[3]} ${discogsData.year}
-${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[4]} ${discogsData.uri}
-${CUE_DICTIONARY[7]} ${discogsData.artists_sort} - ${discogsData.title}
-${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[9]} ${getNumberDisc()}
-${CUE_DICTIONARY[8]} ${getFileName()} ${CUE_DICTIONARY[6]}
+    `${CUE_DICTIONARY[0]} "${discogsData.artists_sort} - ${discogsData.title}"
+${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[1]} "${dataForArray(discogsData.genres)}"
+${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[2]} "${dataForArray(discogsData.styles)}"
+${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[3]} "${discogsData.year}"
+${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[4]} "${discogsData.uri}"
+${CUE_DICTIONARY[7]} "${discogsData.artists_sort} - ${discogsData.title}"
+${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[9]} "${getNumberDisc()}"
+${CUE_DICTIONARY[8]} "${getFileName()}" ${CUE_DICTIONARY[6]}
   ${tracklist(discogsData.tracklist)}
   `;
 }
 
+function downloadCue() {
+  let text = cueOut.value;
+  let blob = new Blob([text], { type: 'text/plain; charset=utf-8' });
+
+  saveAs(blob, `${getFileName()}.cue`);
+}
+
+
 btnGenerator.addEventListener('click', generateCue);
+btnDownload.addEventListener('click', downloadCue);
