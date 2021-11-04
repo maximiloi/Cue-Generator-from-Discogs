@@ -40,6 +40,8 @@ function tracklist(array) {
   let timeArray = ['00:00:00'];
   let timeOut = 0;
 
+  cueTracklist = '';
+
   array.forEach(item => {
     if (item.position[0].includes(getNumberDisc())) {
       resultArray.push(item);
@@ -52,7 +54,7 @@ function tracklist(array) {
     cueTracklist += `${CUE_DICTIONARY[10]} ${item.position.substr(item.position.length - 2)} ${CUE_DICTIONARY[11]}
     ${CUE_DICTIONARY[5]} "${getArtistToTrack(item.artists)}"
     ${CUE_DICTIONARY[7]} "${item.title}"
-    ${CUE_DICTIONARY[12]} ${timeOut < 1000 ? 0 : ''}${Math.floor(timeOut / 60)}:${String(timeOut % 60).padStart(2, "0")}:00
+    ${CUE_DICTIONARY[12]} ${Math.floor(timeOut / 60)}:${String(timeOut % 60).padStart(2, "0")}:00
   `;
 
     timeArray.push('0' + item.duration + ':00');
@@ -68,6 +70,7 @@ async function getDiscogs() {
   const url = API_URL + gettingId();
   const res = await fetch(url);
   const data = await res.json();
+  cueOut.innerHTML = '';
   return data;
 }
 
@@ -91,7 +94,7 @@ function downloadCue() {
   let text = cueOut.value;
   let blob = new Blob([text], { type: 'text/plain; charset=utf-8' });
 
-  saveAs(blob, `${getFileName()}.cue`);
+  saveAs(blob, `${getFileName().substr(0, getFileName().length - 4)}.cue`);
 }
 
 
