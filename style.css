@@ -1,0 +1,141 @@
+body {
+  font-family: Avenir Next, Avenir, SegoeUI, sans-serif;
+  margin: 0;
+  background-color: #e6e6e6;
+}
+
+h1 {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 80vh;
+}
+
+.wrapper {
+  padding: 1em;
+}
+
+form {
+  margin: 2em 0;
+}
+
+.input__wrapper {
+  display: flex;
+  flex-flow: column-reverse;
+  margin-bottom: 1em;
+}
+
+label, input {
+  transition: all 0.2s;
+  touch-action: manipulation;
+}
+
+input {
+  font-size: 1.5em;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  font-family: inherit;
+  -webkit-appearance: none;
+  border-radius: 0;
+  padding: 0;
+  cursor: text;
+  background-color: #e6e6e6;
+}
+
+input:focus {
+  outline: 0;
+  border-bottom: 1px solid #666;
+}
+
+label {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+input:placeholder-shown + label {
+  cursor: text;
+  max-width: 66.66%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform-origin: left bottom;
+  transform: translate(0, 2.125rem) scale(1.5);
+}
+
+::-webkit-input-placeholder {
+  opacity: 0;
+  transition: inherit;
+}
+
+input:focus::-webkit-input-placeholder {
+  opacity: 1;
+}
+
+input:not(:placeholder-shown) + label,
+input:focus + label {
+  transform: translate(0, 0) scale(1);
+  cursor: pointer;
+}
+
+.btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+}
+
+.btn {
+  width: 100%;
+  height: 80px;
+  outline: none;
+  cursor: pointer;
+  background: none;
+  transition: 0.5s;
+  border-radius: 5px;
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  padding: 0.5em 0;
+}
+
+.btn:hover {
+  border: none;
+  color: white;
+  font-size: 1.6em;
+  transform: scale(1.03);
+}
+
+/* Buttons */
+.purple {
+  border: 2px solid #333333;
+  color: #333333;
+}
+.purple:hover {
+  background-color: #333333;
+  transition: all 0.3s ease-in-out;
+}
+
+textarea {
+  font-family: inherit;
+  background-color: #ebebeb;
+  border: 1px solid #ccc;
+}
+
+p {
+  position: fixed;
+  margin: 0 10px;
+  bottom: 0;
+  right: 0;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: gray;
+  text-decoration: underline;
+}

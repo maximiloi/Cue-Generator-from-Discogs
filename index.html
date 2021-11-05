@@ -7,31 +7,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cue Generator from Discogs</title>
 
+  <link rel="stylesheet" href="style.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-  <div class="wrapper">
-    <!-- <label for="discogsId">Discogs Id</label> -->
-    <input type="text" name="discogsId" id="discogsId" class="discogs-id" placeholder="Discogs Id" required>
+  <h1>Cue Generator from Discogs</h1>
+  <div class="container">
+    <div class="wrapper">
+      <div class="input__wrapper">
+        <input type="text" name="discogsId" id="discogsId" class="input__form discogs-id" placeholder="" required>
+        <label class="input__wrapper--placeholder" for="discogsId">Discogs Id</label>
+      </div>
 
-    <!-- <label for="fileName">File name</label> -->
-    <input type="text" name="fileName" id="fileName" class="file-name" placeholder="File name" required>
+      <div class="input__wrapper">
+        <input type="text" name="fileName" id="fileName" class="input__form file-name" placeholder="" required>
+        <label class="input__wrapper--placeholder" for="fileName">mp3 file name</label>
+      </div>
 
-    <!-- <label for="numberDisc">Number Disc</label> -->
-    <input type="number" name="numberDisc" id="numberDisc" min="1" max="10" class="number-disc"
-      placeholder="Number Disc">
+      <div class="input__wrapper">
+        <input type="number" name="numberDisc" id="numberDisc" min="1" max="10" class="input__form number-disc"
+          placeholder="">
+        <label class="input__wrapper--placeholder" for="numberDisc">Number Disc</label>
+      </div>
+
+      <div class="btn-wrapper">
+        <button class="btn btn-generator purple">Generator Cue</button>
+        <button class="btn btn-download purple">Download Cue</button>
+      </div>
+    </div>
+    <textarea name="cueOut" id="cueOut" class="cue-out" cols="80" rows="50" readonly></textarea>
   </div>
-
-  <!-- <textarea name="cueIn" id="cueIn" cols="50" rows="50"></textarea> -->
-
-  <textarea name="cueOut" id="cueOut" class="cue-out" cols="70" rows="50" readonly></textarea>
-
-  <div class="btn-wrapper">
-    <button class="btn btn-generator">Generator Cue</button>
-    <button class="btn btn-download">Download Cue</button>
-  </div>
-
+  <p>&copy; 2021 <a href="https://github.com/maximiloi" target="_blank" rel="noopener noreferrer">iloi</a></p>
   <script src="script.js"></script>
   <script src="FileSaver.js"></script>
 
