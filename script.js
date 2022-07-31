@@ -10,6 +10,7 @@ const cueOut = document.querySelector('.cue-out');
 
 let cueTracklist = '';
 let timeTrack = new Date().setHours(0, 0, 0);
+let trackNumber = 1;
 
 function gettingId() {
   return discogsId.value.replace(/[^0-9]/g, '');
@@ -35,6 +36,17 @@ function getArtistToTrack(array) {
   }
 }
 
+function getTrackNumber() {
+  let number = '';
+  if (trackNumber < 10) {
+    number = `0${trackNumber}`;
+  } else {
+    number = `${trackNumber}`;
+  }
+  trackNumber++;
+  return number;
+}
+
 function tracklist(array) {
   let resultArray = [];
   let timeArray = ['00:00:00'];
@@ -42,19 +54,19 @@ function tracklist(array) {
 
   cueTracklist = '';
 
-  array.forEach(item => {
+  array.forEach((item) => {
     if (item.position[0].includes(getNumberDisc())) {
       resultArray.push(item);
     }
   });
 
-  resultArray.forEach(item => {
+  resultArray.forEach((item) => {
     getArtistToTrack(item.artists);
 
-    cueTracklist += `${CUE_DICTIONARY[10]} ${item.position.substr(item.position.length - 2)} ${CUE_DICTIONARY[11]}
+    cueTracklist += `${CUE_DICTIONARY[10]} ${getTrackNumber()} ${CUE_DICTIONARY[11]}
     ${CUE_DICTIONARY[5]} "${getArtistToTrack(item.artists)}"
     ${CUE_DICTIONARY[7]} "${item.title}"
-    ${CUE_DICTIONARY[12]} ${Math.floor(timeOut / 60)}:${String(timeOut % 60).padStart(2, "0")}:00
+    ${CUE_DICTIONARY[12]} ${Math.floor(timeOut / 60)}:${String(timeOut % 60).padStart(2, '0')}:00
   `;
 
     timeArray.push('0' + item.duration + ':00');
@@ -77,8 +89,7 @@ async function getDiscogs() {
 async function generateCue() {
   let discogsData = await getDiscogs();
 
-  cueOut.innerHTML =
-    `${CUE_DICTIONARY[0]} "${discogsData.artists_sort} - ${discogsData.title}"
+  cueOut.innerHTML = `${CUE_DICTIONARY[0]} "${discogsData.artists_sort} - ${discogsData.title}"
 ${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[1]} "${dataForArray(discogsData.genres)}"
 ${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[2]} "${dataForArray(discogsData.styles)}"
 ${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[3]} "${discogsData.year}"
@@ -88,6 +99,7 @@ ${CUE_DICTIONARY[0]} ${CUE_DICTIONARY[9]} "${getNumberDisc()}"
 ${CUE_DICTIONARY[8]} "${getFileName()}" ${CUE_DICTIONARY[6]}
   ${tracklist(discogsData.tracklist)}
   `;
+  trackNumber = 1;
 }
 
 function downloadCue() {
@@ -96,7 +108,6 @@ function downloadCue() {
 
   saveAs(blob, `${getFileName().substr(0, getFileName().length - 4)}.cue`);
 }
-
 
 btnGenerator.addEventListener('click', generateCue);
 btnDownload.addEventListener('click', downloadCue);
