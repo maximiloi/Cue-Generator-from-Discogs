@@ -61,7 +61,6 @@ function tracklist(array) {
   });
 
   resultArray.forEach((item) => {
-    console.log('resultArray: ', resultArray);
     getArtistToTrack(item.artists);
 
     cueTracklist += `${CUE_DICTIONARY[10]} ${getTrackNumber()} ${CUE_DICTIONARY[11]}
